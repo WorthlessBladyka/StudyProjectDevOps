@@ -1,0 +1,218 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    font-family: "PT Astra Sans", Arial, sans-serif;
+    background-color: white;
+    line-height: 1.5;
+    color: #333;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Стили для article - измененные */
+article {
+    font-family: "TT Firs Neue", sans-serif, Arial;
+    border: 2px solid rgb(134, 98, 242);
+    background-color: rgb(134, 98, 242);
+    color: white;
+    padding: 12.5px; /* Уменьшенный внутренний отступ в два раза */
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+article h1 {
+    font-size: 30px; /* Увеличен на 2px */
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+article p {
+    font-size: 20px; /* Увеличен на 2px */
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Стили для main и кандидатов - измененные */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.candidate {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 25px;
+    background-color: #f9f9f9;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.candidate:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.candidate-header {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 15px; /* Уменьшен отступ */
+    align-items: flex-start;
+}
+
+.photo-placeholder {
+    width: 120px;
+    height: 160px;
+    background-color: #f0f0f0;
+    border: 2px dashed #bbb;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 16px; /* Увеличен на 2px */
+    text-align: center;
+    padding: 10px;
+    flex-shrink: 0;
+}
+
+.candidate-info {
+    flex: 1;
+}
+
+.candidate-info h3 {
+    font-size: 24px; /* Увеличен на 2px */
+    color: rgb(134, 98, 242);
+    margin-bottom: 10px;
+    font-family: "TT Firs Neue", sans-serif, Arial;
+}
+
+.candidate-info .slogan {
+    font-size: 20px; /* Увеличен на 2px */
+    font-style: italic;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.candidate-description {
+    margin-top: 10px; /* Смещен выше */
+    padding-top: 10px; /* Уменьшен отступ сверху */
+    border-top: 1px solid #d0d0d0; /* Светлее линия разделения */
+    color: #444;
+    line-height: 1.6;
+    font-size: 18px; /* Увеличен на 2px */
+}
+
+/* Новый блок с ссылкой и кнопкой */
+.candidate-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.more-link {
+    font-size: 16px;
+    color: rgb(134, 98, 242);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.more-link:hover {
+    color: #8a6de6;
+    text-decoration: underline;
+}
+
+.vote-button {
+    padding: 10px 25px;
+    border: 1px solid rgb(134, 98, 242);
+    background-color: rgb(134, 98, 242);
+    color: white;
+    font-family: "PT Astra Sans", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.vote-button:hover {
+    background-color: white;
+    color: rgb(134, 98, 242);
+}
+
+/* Стили для footer */
+footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    border-top: 3px solid rgb(134, 98, 242);
+    margin-top: 20px;
+}
+
+footer p {
+    margin-bottom: 15px;
+    vertical-align: middle;
+    line-height: 1.6;
+}
+
+footer p:first-child {
+    font-size: 14px;
+    color: #555;
+}
+
+footer p:last-child {
+    font-size: 12px;
+    color: #777;
+    font-style: italic;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .candidate-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .photo-placeholder {
+        align-self: center;
+    }
+
+    article h1 {
+        font-size: 26px; /* Увеличен на 2px */
+    }
+
+    article p {
+        font-size: 18px; /* Увеличен на 2px */
+    }
+
+    .candidate-footer {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .vote-button {
+        width: 100%;
+    }
+}

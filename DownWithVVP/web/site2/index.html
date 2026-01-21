@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тестирование Nginx</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="scripts/sc.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-server"></i> Тестирование Nginx</h1>
+            <p class="subtitle">Одностраничное приложение для проверки работы веб-сервера</p>
+        </header>
+
+        <div class="status-panel">
+            <div class="status-header">
+                <h2>Статус соединения</h2>
+                <div class="connection-status">
+                    <span class="status-indicator" id="statusIndicator"></span>
+                    <span id="statusText">Проверка...</span>
+                </div>
+            </div>
+            <div class="status-details">
+                <div class="status-item">
+                    <span class="status-label">URL:</span>
+                    <span id="currentUrl" class="status-value">...</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Протокол:</span>
+                    <span id="protocol" class="status-value">...</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Время загрузки:</span>
+                    <span id="loadTime" class="status-value">...</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">User Agent:</span>
+                    <span id="userAgent" class="status-value">...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="card">
+                <h3><i class="fas fa-vial"></i> Тест соединения</h3>
+                <p>Проверьте подключение к серверу Nginx</p>
+                <div class="button-group">
+                    <button id="testConnectionBtn" class="btn btn-primary">
+                        <i class="fas fa-sync-alt"></i> Проверить соединение
+                    </button>
+                    <button id="testApiBtn" class="btn btn-secondary">
+                        <i class="fas fa-code"></i> Тест API
+                    </button>
+                </div>
+                <div id="connectionResult" class="test-result"></div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-tachometer-alt"></i> Тест производительности</h3>
+                <p>Измерьте скорость ответа сервера</p>
+                <div class="form-group">
+                    <label for="requestCount">Количество запросов:</label>
+                    <input type="number" id="requestCount" min="1" max="50" value="5">
+                </div>
+                <button id="performanceTestBtn" class="btn btn-secondary">
+                    <i class="fas fa-stopwatch"></i> Запустить тест
+                </button>
+                <div id="performanceResult" class="test-result">
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div id="performanceStats"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-cogs"></i> Настройки запроса</h3>
+                <p>Настройте параметры тестовых запросов</p>
+                <div class="form-group">
+                    <label for="endpoint">Эндпоинт:</label>
+                    <select id="endpoint">
+                        <option value="">/ (корневой путь)</option>
+                        <option value="/favicon.ico">/favicon.ico</option>
+                        <option value="/nonexistent">/nonexistent (404 тест)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="requestMethod">Метод запроса:</label>
+                    <select id="requestMethod">
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="DELETE">DELETE</option>
+                    </select>
+                </div>
+                <button id="sendRequestBtn" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Отправить запрос
+                </button>
+                <div id="requestResult" class="test-result"></div>
+            </div>
+        </div>
+
+        <div class="card full-width">
+            <h3><i class="fas fa-history"></i> История запросов</h3>
+            <div class="table-container">
+                <table id="requestHistory">
+                    <thead>
+                        <tr>
+                            <th>Время</th>
+                            <th>Метод</th>
+                            <th>Эндпоинт</th>
+                            <th>Статус</th>
+                            <th>Время ответа</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <!-- Записи будут добавляться через JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-group">
+                <button id="clearHistoryBtn" class="btn btn-outline">
+                    <i class="fas fa-trash-alt"></i> Очистить историю
+                </button>
+                <button id="exportHistoryBtn" class="btn btn-outline">
+                    <i class="fas fa-download"></i> Экспорт истории
+                </button>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3><i class="fas fa-info-circle"></i> Информация о Nginx</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4><i class="fas fa-check-circle"></i> Признаки работающего Nginx</h4>
+                    <ul>
+                        <li>Страница загружается без ошибок</li>
+                        <li>Статус соединения: "Сервер доступен"</li>
+                        <li>Заголовки ответа содержат "Server: nginx"</li>
+                        <li>Корректная обработка статических файлов</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-tasks"></i> Что тестируем</h4>
+                    <ul>
+                        <li>Доступность сервера</li>
+                        <li>Скорость ответа</li>
+                        <li>Обработку различных HTTP-методов</li>
+                        <li>Корректность ответов на разные запросы</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Сайт для тестирования Nginx &copy; <span id="currentYear"></span></p>
+            <p class="footer-info">Эта страница загружена с веб-сервера Nginx. Используйте инструменты разработчика (F12) для просмотра деталей сети.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

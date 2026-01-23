@@ -1,0 +1,11 @@
+- name: Test1
+  hosts: localhost
+  tasks:
+    - name: Test date
+      ansible.builtin.command: date
+      register: my_output
+      changed_when: my_output.rc != 0
+
+    - name: Показать результат
+      ansible.builtin.debug:
+        msg: "Результат выполнения команды date: {{ my_output.stdout }}"

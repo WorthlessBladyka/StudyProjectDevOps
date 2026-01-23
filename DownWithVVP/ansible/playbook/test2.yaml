@@ -1,0 +1,23 @@
+- name: Test2_cmd
+  hosts: localhost
+  tasks:
+    - name: Command-test
+      ansible.builtin.command: sudo fdisk -l
+      register: test_var
+      changed_when: test_var.rc != 0
+    - name: Debug-test
+      ansible.builtin.debug:
+        msg: "Debug message fdisk {{ test_var.stdout }}"
+- name: Test2_script
+  hosts: localhost
+  tasks:
+    - name: Script test
+      ansible.builtin.script:
+        cmd: /home/bban/Documents/StudyProjectDevOps/DownWithVVP/bash/scriptTest.sh
+        args:
+          creates: /home/bban/Documents/StudyProjectDevOps/DownWithVVP/ansible/temp
+          chdir: /home/bban/Documents/StudyProjectDevOps/DownWithVVP/ansible/temp
+      register: test_var2
+    - name: Debug-script
+      ansible.builtin.debug:
+        msg: "Debug message script {{ test_var2.stdout }}"

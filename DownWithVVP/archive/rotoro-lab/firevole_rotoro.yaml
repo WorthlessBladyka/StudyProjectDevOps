@@ -1,0 +1,30 @@
+- name: Update yum
+  ansible.builtin.yum:
+    update_cashe: true
+    cache_valid_time: 3600
+- name: Install firewall
+  ansible.builtin.yum:
+    cmd: yum install -y firewalld
+- name: Start service
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+- name: Autostarted service
+  ansible.builtin.service:
+    name: firewalld
+    state: enabled
+- name: Setting firewall 1
+  ansible.posix.firewalld:
+    port: 3306/tcp
+    zone: public
+    permanent: yes
+    state: enabled
+- name: Setting firewall 2
+  ansible.posix.firewalld:
+    port: 80/tcp
+    zone: public
+    permanent: yes
+    state: enabled
+- name: Reload service
+  ansible.builtin.command:
+      cmd: firewall-cmd --reload

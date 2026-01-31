@@ -1,0 +1,20 @@
+- name: Remove
+  hosts: node1
+  become: true
+  tasks:
+    - name: Remove
+      ansible.builtin.script:
+        cmd: ../../bash/remove_containerD.sh
+    - name: Remove_daemon_reload
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Remove_check
+      ansible.builtin.service_facts:
+    - name: Debug service state
+      ansible.builtin.debug:
+        var: ansible_facts.services['containerd.service'].state
+    - name: Reboot
+      ansible.builtin.command:
+        cmd: shutdown -r -t 10
+      register: reboot_var
+      changed_when: reboot_var.rc != 0status {{ status.stdout }}"

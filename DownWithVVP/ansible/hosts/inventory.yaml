@@ -1,0 +1,39 @@
+ungrouped:
+  hosts:
+    192.168.1.104
+    192.168.1.105
+    192.168.1.106
+    192.168.1.56
+node1:
+  hosts:
+    192.168.1.104
+  vars:
+    ansible_connection: ssh
+    ansible_user: bban
+    ansible_ssh_password: q1w2e3
+    ansible_become_password: q1w2e3
+node2:
+  hosts:
+    192.168.1.105
+  vars:
+    ansible_connection: ssh
+    ansible_user: vlad
+    ansible_ssh_password: q1w2e3
+node3:
+  hosts:
+    192.168.1.106
+  vars:
+    ansible_connection: ssh
+    ansible_user: vlad
+    ansible_ssh_password: q1w2e3
+local:
+  hosts:
+    192.168.1.56
+  vars:
+    ansible_connection: local
+    ansible_user: bban
+test:
+  hosts:
+    192.168.1.104
+    192.168.1.105
+    192.168.1.106

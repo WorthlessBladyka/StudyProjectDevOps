@@ -1,0 +1,68 @@
+- name: Remove docker
+  hosts: node1
+  become: true
+  
+- name: Install containerd for Ubuntu server
+  hosts: node1
+  become: true
+  tasks:
+    - name: Install
+      ansible.builtin.script:
+        cmd: ../../bash/environment_deployment/Ubuntu/install_and_check_containerD.sh
+      register: installer
+    - name: Debug containerd installer
+      ansible.builtin.debug:
+        msg: " debug installer {{ installer.stdout }}"
+- name: Preparation for installer modules kubernetes
+  hosts: node1
+  become: true
+  tasks:
+    - name: Settings validation packets
+      ansible.builtin.script:
+        cmd: ../../bash/environment_deployment/Ubuntu/setting_vaidity_packet_ipv4.sh
+      register: validation_pack
+      changed_when: validation_pack.rs != 0
+- name: Setting cgroups
+  hosts: node1
+  become: true
+  tasks:
+    - name: Setting
+      ansible.builtin.script:
+        cmd: ../../bash/environment_deployment/Ubuntu/settings_cgroups.sh
+- name: Install kubectl kubeadm kubelet
+  hosts: node1
+  become: true
+  tasks:
+    - name: Check installed kubectl
+      ansible.builtin.command:
+        cmd: kubectl version --client --short
+      register: check_kubectl
+      changed_when: false
+      failed_when: false
+    - name: Install kubectl
+      ansible.builtin.script:
+        msg: ../../bash/environment_deployment/Ubuntu/Install_kubectl.sh
+      args:
+        executable: /bin/bash
+      when: check_kubectl.rc != 0
+      register: install_kubectl
+    - name: Verification installed kubectl
+      ansible.builtin.command:
+        cmd: kubectl version --client --short
+      register: verification_kubectl
+      when: check_kubectl.rc != 0
+      changed_when: false
+- name: Install kubectl kubeadm kubelet
+  hosts: node1
+  become: true
+  tasks:
+    - name: Install kubeadm kubelet
+      ansible.builtin.script:
+        msg: ../../bash/environment_deployment/Ubuntu/Install_kubeadm_and_kubelet.sh
+      register: install_kubectl
+    - name: Collect service facts
+      ansible.builtin.service_facts:
+    - name: Debug service state
+      ansible.builtin.debug:
+        var: ansible_facts.services['kubelet.service'].state
+      when: install_kubectl.rs != 0

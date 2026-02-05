@@ -1,9 +1,0 @@
-name: Enable IPv4 packet forwarding
-hosts: host1
-become: true
-tasks:
-  - name: Sysctl params required by setup, params persist across reboots
-    ansible.builtin.script:
-      cmd: .../.../bash/Vaidity_packet_ipv4.sh
-    register: Enable_packet
-    changed_when: Enable_packet != 0

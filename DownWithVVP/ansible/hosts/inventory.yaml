@@ -4,6 +4,7 @@ ungrouped:
     192.168.1.105
     192.168.1.106
     192.168.1.56
+    192.168.1.39
 node1:
   hosts:
     192.168.1.104
@@ -19,6 +20,7 @@ node2:
     ansible_connection: ssh
     ansible_user: vlad
     ansible_ssh_password: q1w2e3
+    ansible_become_password: q1w2e3
 node3:
   hosts:
     192.168.1.106
@@ -32,8 +34,11 @@ local:
   vars:
     ansible_connection: local
     ansible_user: bban
-test:
+test_node:
   hosts:
-    192.168.1.104
-    192.168.1.105
-    192.168.1.106
+    192.168.1.39
+  vars:
+    ansible_connection: ssh
+    ansible_user: test
+    ansible_ssh_password: qwerty
+    ansible_become_password: qwerty

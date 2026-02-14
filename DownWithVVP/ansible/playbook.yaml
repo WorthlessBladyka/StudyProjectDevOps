@@ -1,0 +1,5 @@
+- name: Install kubernetes
+  hosts: node1
+  become: true
+  roles:
+    - kubernetes

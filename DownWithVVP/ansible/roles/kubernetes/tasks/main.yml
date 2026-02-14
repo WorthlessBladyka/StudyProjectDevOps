@@ -1,3 +1,28 @@
-#SPDX-License-Identifier: MIT-0
----
-# tasks file for kubernetes
+- name: Install containerd
+  ansible.builtin.script:
+    cmd: ../files/Ubuntu/install_containerD.sh
+  register: install_containerd
+- name: Settings validation packets
+  ansible.builtin.script:
+    cmd: ../files/Ubuntu/validity_pack_ipv4.sh
+  register: val_pack
+- name: Setting cgroups
+  ansible.builtin.script:
+    cmd: ../files/Ubuntu/settings_cgroups.sh
+  register: cgroup
+- name: Check installed kubectl
+  ansible.builtin.command:
+    cmd: kubectl version --client --short
+  register: check_kubectl
+  changed_when: false
+  failed_when: false
+- name: Install kubectl
+  ansible.builtin.script:
+    cmd: ../files/Ubuntu/install_kubectl.sh
+  when: check_kubectl.rc != 0
+  register: install_kubectl
+- name: Install kubeadm and kubelet
+  ansible.builtin.script:
+    cmd: ../files/Ubuntu/install_core.sh
+  register: isntall_core
+
